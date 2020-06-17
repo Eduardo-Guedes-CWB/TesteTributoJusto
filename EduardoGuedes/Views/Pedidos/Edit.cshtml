@@ -1,0 +1,102 @@
+﻿@model EduardoGuedes.Models.PedidoModel
+
+@{
+    ViewBag.Title = "Alterar Pedido";
+}
+
+    <h2>Alterar Pedido</h2>
+<div>
+    <h4>Detalhes Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Num Pedido:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdPedido)
+        </dd>
+        <dt>
+            Cliente:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.NomeCliente)
+        </dd>
+    </dl>
+</div>
+<h4>Produtos</h4>
+
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="form-horizontal">
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+        <table class="table">
+            <tr>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Descrição
+                </th>
+                <th>
+                    Quantidade
+                </th>
+                <th>
+                    Vlr. Unt. (Com ponto Ex 1.00)
+                </th>
+            </tr>
+
+            @foreach (var item in Model.LstProdutos)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(model => item.Produto.IdProduto)
+                        @Html.DisplayFor(modelItem => item.Produto.IdProduto)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.Produto.DesProduto)
+
+                    </td>
+                    <td>
+
+                        @Html.EditorFor(model => item.QtdProduto, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    </td>
+                    <td>
+
+                        @Html.EditorFor(model => item.VlrUntProduto, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+        <hr />
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para Lista de pedidos", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('input[type="text"]').each(function () {
+                var val = $(this).val().replace(',', '.');
+                $(this).val(val);
+            });
+        });
+    </script>
+}

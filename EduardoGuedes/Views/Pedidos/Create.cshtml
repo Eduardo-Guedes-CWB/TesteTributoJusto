@@ -1,0 +1,66 @@
+﻿@model EduardoGuedes.Models.PedidoModel
+@{
+    SelectList lstClientes = (SelectList)ViewBag.Clientes;
+    SelectList lstProdutos = (SelectList)ViewBag.Produtos;
+}
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>PedidoModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Cliente</label>
+            @Html.DropDownList("idCliente", lstClientes, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    Descrição
+                </th>
+                <th>
+                    Quantidade
+                </th>
+                <th>
+                    Vlr. Unt. (Com ponto Ex 1.00)
+                </th>
+            </tr>
+            <div id="dvnewItem" class="vi">
+                <tr>
+                    <td>
+                        @Html.DropDownList("idProduto", lstProdutos, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.TextBox("qtdProduto", "", new { @type = "number" })
+                    </td>
+                    <td>
+                        @Html.TextBox("vlrProduto", "", new { @type = "number" })
+
+
+
+                    </td>
+                </tr>
+            </div>
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Criar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para Lista de pedidos", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

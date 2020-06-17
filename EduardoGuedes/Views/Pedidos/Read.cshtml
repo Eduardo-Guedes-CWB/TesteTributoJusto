@@ -1,0 +1,70 @@
+﻿@model EduardoGuedes.Models.PedidoModel
+
+@{
+    ViewBag.Title = "Datalhes";
+}
+
+    <h2>Datalhes</h2>
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Num Pedido:            
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdPedido)
+        </dd>
+        <dt>
+            Cliente:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.NomeCliente)
+        </dd>
+    </dl>    
+</div>
+<h4>Produtos</h4>
+<table class="table">
+    <tr>
+        <th>
+            Codigo
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            Quantidade
+        </th>
+        <th>
+            Vlr. Unt.
+        </th>
+        <th>
+            vlr. Total
+        </th>
+    </tr>
+
+    @foreach (var item in Model.LstProdutos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Produto.IdProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Produto.DesProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QtdProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VlrUntProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VlrTtlProduto)
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Alterar", "Edit", new { id = Model.IdPedido }) |
+    @Html.ActionLink("Voltar para Lista de pedidos", "Index")
+</p>
